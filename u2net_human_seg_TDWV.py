@@ -14,10 +14,10 @@
 
 # # 돌리고 싶은 이미지를 먼저 업로드 후 아래를 실행
 
-# In[4]:
+# In[ ]:
 
 
-get_ipython().run_line_magic('cd', '..')
+get_ipython().system('pwd')
 
 
 # In[7]:
