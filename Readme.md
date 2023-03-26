@@ -40,5 +40,7 @@ This code makes test_edge image
 
 ## ref
 https://github.com/switchablenorms/DeepFashion_Try_On
+
 https://github.com/facebookresearch/detectron2
+
 https://github.com/levindabhi/Self-Correction-Human-Parsing-for-ACGPN
