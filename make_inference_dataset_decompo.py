@@ -75,13 +75,10 @@ get_ipython().system('pip install pycocotools')
 # In[8]:
 
 
-pip install ninja
+get_ipython().system('pip install ninja')
+get_ipython().system('pip install gdown')
 
 
-# In[9]:
-
-
-pip install gdown
 
 
 # # mkdir Dataset 
