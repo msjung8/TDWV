@@ -33,7 +33,7 @@ from datasets.simple_extractor_dataset import SimpleFolderDataset
 
 dataset_settings = {
     'lip': {
-        'input_size': [256, 192],
+        'input_size': [473, 473],
         'num_classes': 20,
         'label': ['Background', 'Hat', 'Hair', 'Glove', 'Sunglasses', 'Upper-clothes', 'Dress', 'Coat',
                   'Socks', 'Pants', 'Jumpsuits', 'Scarf', 'Skirt', 'Face', 'Left-arm', 'Right-arm',
@@ -99,17 +99,20 @@ def get_palette(num_cls):
 
 def main():
     args = get_arguments()
-    get_
     file_dir = args.input_dir
+    print(file_dir)
     file_names = os.listdir(file_dir)
+    print(file_names)
+    target_size = (473,473)
     input_size_list = []
     for img_name in file_names:
         img = cv2.imread(file_dir+img_name)
+        #cv2.imwrite(file_dir+img_name, cv2.resize(img, target_size))
         #print(file_dir+img_name)
-        img_shape = [img.shape[1], img.shape[0]]
         #print(img.shape)
+        img_shape = [img.shape[1], img.shape[0]]
         input_size_list.append(img_shape)
-    target_size = [512,512]
+    
         
         
     #set_input_size(x,y)
@@ -169,6 +172,7 @@ def main():
     #palette = get_palette(14)
     with torch.no_grad():
         for idx, batch in enumerate(tqdm(dataloader)):
+            print(idx)
             input_size = input_size_list[idx]
             image, meta = batch
             img_name = meta['name'][0]
@@ -188,7 +192,7 @@ def main():
 
             logits_result = transform_logits(upsample_output.data.cpu().numpy(), c, s, w, h, input_size=input_size)
             parsing_result = np.argmax(logits_result, axis=2)
-            parsing_result_path = os.path.join(args.output_dir, img_name[:-4] + '.png')
+            parsing_result_path = os.path.join(args.output_dir, img_name[:-4] + '.jpg')
             output_arr = np.asarray(parsing_result, dtype=np.uint8)
 
             new_arr = np.full(output_arr.shape, 7)
