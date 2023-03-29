@@ -2,35 +2,22 @@
 # coding: utf-8
 
 # In[1]:
-
-
-get_ipython().system('git clone https://github.com/levindabhi/cloth-segmentation')
-
-
-# In[3]:
-
-
-get_ipython().run_line_magic('cd', 'cloth_segmentation')
-
-
-# In[5]:
-
-
-get_ipython().system('pip install gdown')
-
-
-# In[6]:
-
-
-get_ipython().system('gdown --id 1mhF3yqd7R-Uje092eypktNl-RoZNuiCJ')
-get_ipython().system('mkdir input_images')
-get_ipython().system('mkdir output_images')
-
+import os
+if os.path.isdir('./cloth-segmentation'):
+    print("cloth-segmentation dir exists")
+    get_ipython().run_line_magic('cd', 'cloth-segmentation')
+else:
+    get_ipython().system('git clone https://github.com/levindabhi/cloth-segmentation')
+    get_ipython().run_line_magic('cd', 'cloth-segmentation')
+    get_ipython().system('pip install gdown')
+    if not os.path.isfile('cloth_segm_u2net_latest.pth'):
+        get_ipython().system('gdown --id 1mhF3yqd7R-Uje092eypktNl-RoZNuiCJ')
+    get_ipython().system('mkdir input_images')
+    get_ipython().system('mkdir output_images')
+    
 
 # In[7]:
 
-
-import os
 # from tqdm import tqdm
 from tqdm.notebook import tqdm
 from PIL import Image
@@ -46,8 +33,11 @@ from utils.saving_utils import load_checkpoint_mgpu
 from networks import U2NET
 device = 'cuda'
 
-image_dir = 'datasets/new_datasets/test_img'
-result_dir = 'datasets/new_datasets/test_clothes'
+image_dir = '../datasets/new_datasets/test_img'
+result_dir = '../datasets/new_datasets/test_clothes'
+#image_dir = '../datasets/fashionpedia/val_test2020_use_human_h/val_test2020/'
+#result_dir = '../datasets/fashionpedia/val_test2020_use_human_h/val_test2020_edge_bs/'
+
 checkpoint_path = 'cloth_segm_u2net_latest.pth'
 
 def get_palette(num_cls):
