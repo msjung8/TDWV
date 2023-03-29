@@ -6,6 +6,7 @@ get_ipython().run_line_magic('cd', 'cloth-segmentation')
 # In[7]:
 
 # from tqdm import tqdm
+import os
 from tqdm.notebook import tqdm
 from PIL import Image
 import numpy as np
