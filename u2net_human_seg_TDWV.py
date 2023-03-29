@@ -1,28 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# # U-2-Net 디렉토리 내에 위치 -> 이미지 돌리는 법
-
-# !pwd
-
-# %cd test_data
-
-# # 내가 돌리고 싶은 이미지를 저장할 디렉토리와 그 결과를 저장할 디렉토리 
-
-# !mkdir test_myimg
-# !mkdir u2net_myimg_results
-
-# # 돌리고 싶은 이미지를 먼저 업로드 후 아래를 실행
-
-# In[ ]:
-
-
-get_ipython().system('pwd')
-
-
-# In[7]:
-
-
 import os
 from skimage import io, transform
 import torch
@@ -51,7 +26,7 @@ class background_subtractor:
         self.img_dir = img_dir
         self.pred_dir = pred_dir
         
-    def normPRED(d):
+    def normPRED(self, d):
         ma = torch.max(d)
         mi = torch.min(d)
 
@@ -59,7 +34,7 @@ class background_subtractor:
 
         return dn
 
-    def save_output(image_name,pred,d_dir):
+    def save_output(self,image_name,pred,d_dir):
 
         predict = pred
         predict = predict.squeeze()
@@ -78,7 +53,7 @@ class background_subtractor:
         for i in range(1,len(bbb)):
             imidx = imidx + "." + bbb[i]
 
-        imo.save(d_dir+imidx+'.png')
+        imo.save(d_dir+imidx+'.jpg')
 
     def main(self):
 
@@ -136,22 +111,14 @@ class background_subtractor:
 
             # normalization
             pred = d1[:,0,:,:]
-            pred = normPRED(pred)
+            pred = self.normPRED(pred)
 
             # save results to test_results folder
             if not os.path.exists(prediction_dir):
                 os.makedirs(prediction_dir, exist_ok=True)
-            save_output(img_name_list[i_test],pred,prediction_dir)
+            self.save_output(img_name_list[i_test],pred,prediction_dir)
 
             del d1,d2,d3,d4,d5,d6,d7
 
 #if __name__ == "__main__":
-#    main(img_dir, pred_dir)
-
-
-# ## 처음 돌렷을 경우 오류 발생 가능 , 커널을 재시작하면 AttributeError: module 'PIL.TiffTags' has no attribute 'LONG8' 오류 사라진다.
-
-# # 결과 예시
-
-# ![image-2.png](attachment:image-2.png)
-# ![image.png](attachment:image.png)
+#   main(img_dir, pred_dir)
