@@ -76,9 +76,12 @@ get_ipython().system('pip install pycocotools')
 
 
 get_ipython().system('pip install ninja')
+
+
+# In[9]:
+
+
 get_ipython().system('pip install gdown')
-
-
 
 
 # # mkdir Dataset 
@@ -88,22 +91,24 @@ get_ipython().system('pip install gdown')
 
 
 get_ipython().system('pwd')
-if os.path.isdir('./datasets'):
-    print('./datasets exist')
+if os.path.isdir('./datasets/new_datasets'):
+    print('./datasets/new_datasets exist')
 else:
     get_ipython().system('mkdir datasets')
     get_ipython().run_line_magic('cd', 'datasets')
     get_ipython().system('mkdir new_datasets')
     get_ipython().run_line_magic('cd', 'new_datasets')
     get_ipython().system('mkdir test_img')
-    get_ipython().system('mkdir test_img_resized')
+    get_ipython().system('mkdir test_img_nobg') #사용
+    get_ipython().system('mkdir test_img_onlybg') #사용
+    get_ipython().system('mkdir test_img_resized') #사용
     
     get_ipython().system('mkdir test_pose')
     get_ipython().system('mkdir test_pose_resized')
-    get_ipython().system('mkdir test_pose_resized_img')
+    get_ipython().system('mkdir test_pose_resized_img') #사용
     
     get_ipython().system('mkdir test_label')
-    get_ipython().system('mkdir test_label_resized')
+    get_ipython().system('mkdir test_label_resized') #사용
     
     get_ipython().system('mkdir test_edge')
     get_ipython().system('mkdir test_edge_resized')
@@ -113,11 +118,13 @@ else:
     get_ipython().system('mkdir test_color_bg_resized')
     
     get_ipython().system('mkdir test_clothes')
-    get_ipython().system('mkdir test_clothes_upper')
     get_ipython().system('mkdir test_clothes_upper_resized')
+    get_ipython().system('mkdir test_clothes_upper_resized_edge')#사용
+    get_ipython().system('mkdir test_clothes_upper_resized_color')#사용
     
-    get_ipython().system('mkdir test_clothes_lower')
     get_ipython().system('mkdir test_clothes_lower_resized')
+    get_ipython().system('mkdir test_clothes_lower_resized_edge')#사용
+    get_ipython().system('mkdir test_clothes_lower_resized_color')#사용
     get_ipython().run_line_magic('cd', '../../')
 
 
